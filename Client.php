@@ -4,6 +4,5 @@ $service=new
 SoapClient("http://localhost/tp_soap/Server.wsdl");
 $taballservices=$service->dbConn();
 $taballservices=$service->recettes();
-
 print_r($taballservices);
 ?>
