@@ -2,48 +2,113 @@
 <definitions name="exemple" targetNamespace="urn:exemple" xmlns:typens="urn:exemple" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
              xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"  xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
              xmlns="http://schemas.xmlsoap.org/wsdl/"  xmlns:typens0="http://localhost/tp_soap/conn.php">
-    <message name="dbConn"/>
-    <message name="dbConnResponse">
-        <part name="dbConnReturn"/>
-    </message>
-    <message name="recettes"/>
-    <message name="recettesResponse">
-        <part name="recettesReturn"/>
-    </message>
-    <portType name="essai_instancePortType">
-        <operation name="dbConn">
-            <input message="typens:dbConn"/>
-            <output message="typens:dbConnResponse"/>
-        </operation>
-        <operation name="recettes">
-            <input message="typens:recettes"/>
-            <output message="typens:recettesResponse"/>
-        </operation>
-    </portType>
-    <binding name="essai_instanceBinding" type="typens:essai_instancePortType">
-        <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
-        <operation name="dbConn">
-            <soap:operation soapAction="urn:essai_instanceAction"/>
-            <input>
-                <soap:body namespace="urn:exemple" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
-            </input>
-            <output>
-                <soap:body namespace="urn:exemple" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
-            </output>
-        </operation>
-        <operation name="recettes">
-            <soap:operation soapAction="urn:essai_instanceAction"/>
-            <input>
-                <soap:body namespace="urn:exemple" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
-            </input>
-            <output>
-                <soap:body namespace="urn:exemple" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
-            </output>
-        </operation>
-    </binding>
-    <service name="exempleService">
-        <port name="essai_instancePort" binding="typens:essai_instanceBinding">
-            <soap:address location="http://localhost/tp_soap/conn.php"/>
-        </port>
-    </service>
-</definitions>
+
+    <types>
+        <xsd:schema targetNamespace="http://localhost/tp_soap/"
+        <xsd:complexType name="newRecette">
+            <xsd:sequence>
+                <xsd:element name="nomRecette" type="xs:string" minOccurs="0" maxOccurs="50"/>
+                <xsd:element name="descriptionRecette" type="xs:string" minOccurs="0" maxOccurs="50"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:schemas>
+</types>
+
+<message name="dbConn"/>
+<message name="dbConnResponse">
+<part name="dbConnReturn"/>
+</message>
+<message name="recettes"/>
+<message name="recettesResponse">
+<part name="recettesReturn"/>
+</message>
+
+<message name="newRecetteComplexType"/>
+<part name="newRecette" type="tns.newRecette"/>
+        </message>
+<message name="newRecetteComplexTypeResponse"/>
+<part name="newRecetteComplexTypeResponse" type="xsd:boolean"/>
+        </message>
+
+<message name="deleteRecette"/>
+<message name="deleteRecetteResponse">
+<part name="deleteRecetteReturn"/>
+</message>
+
+
+<portType name="essai_instancePortType">
+
+<operation name="dbConn">
+    <input message="typens:dbConn"/>
+    <output message="typens:dbConnResponse"/>
+</operation>
+
+<operation name="recettes">
+    <input message="typens:recettes"/>
+    <output message="typens:recettesResponse"/>
+</operation>
+
+<operation name="newRecette">
+    <input message="tns:newRecetteComplexType"/>
+    <output message="tns:newRecetteComplexTypeResponse"/>
+</operation>
+
+<operation name="deleteRecette">
+    <input message="typens:deleteRecette"/>
+    <output message="typens:deleteRecetteResponse"/>
+</operation>
+
+</portType>
+
+<binding name="essai_instanceBinding" type="typens:essai_instancePortType">
+<soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+<operation name="dbConn">
+    <soap:operation soapAction="urn:essai_instanceAction"/>
+    <input>
+        <soap:body namespace="urn:exemple" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+    </input>
+    <output>
+        <soap:body namespace="urn:exemple" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+    </output>
+</operation>
+
+<operation name="recettes">
+    <soap:operation soapAction="urn:essai_instanceAction"/>
+    <input>
+        <soap:body namespace="urn:exemple" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+    </input>
+    <output>
+        <soap:body namespace="urn:exemple" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+    </output>
+</operation>
+
+<operation name="newRecette">
+    <soap:operation soapAction="urn:essai_instanceAction"/>
+    <input>
+        <soap:body namespace="urn:exemple" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+    </input>
+    <output>
+        <soap:body namespace="urn:exemple" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+    </output>
+</operation>
+
+<operation name="deleteRecette">
+    <soap:operation soapAction="urn:essai_instanceAction"/>
+    <input>
+        <soap:body namespace="urn:exemple" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+    </input>
+    <output>
+        <soap:body namespace="urn:exemple" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+    </output>
+</operation>
+
+</binding>
+
+<service name="exempleService">
+<port name="essai_instancePort" binding="typens:essai_instanceBinding">
+    <soap:address location="http://localhost/SOAP/TPCUISTOT/bd.inc.php"/>
+</port>
+</service>
+
+        </definitions>
